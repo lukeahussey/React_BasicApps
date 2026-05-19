@@ -1,6 +1,6 @@
 const Header = (props) => {
-  console.log('HEADER props:')
-  console.log(props)
+  //console.log('HEADER props:')
+  //console.log(props)
   return (
     <>
       <h1>{props.name}</h1>
@@ -8,35 +8,22 @@ const Header = (props) => {
   )
 }
 
+const Part = ({ part }) => (
+  <p>
+    {part.name} {part.exercises}
+  </p>
+)
 
-const Part = (props) => {
-  console.log('PART props:')
-  console.log(props)
-  return (
-    <p>
-      {props.part.name} {props.part.exercises}
-    </p>
-  )
-}
+const Content = ({ parts }) => (
+  <div>
+    {parts.map((part, index) => (
+      <Part key={index} part={part} />
+    ))}
+  </div>
+)
 
-
-const Content = (props) => {
-  console.log('CONTENT props:')
-  console.log(props)
-  return (
-    <div>
-      <Part part={props.parts[0]} />
-      <Part part={props.parts[1]} />
-      <Part part={props.parts[2]} />
-    </div>
-  )
-}
-
-
-const Total = (props) => {
-  console.log('TOTAL props:')
-  console.log(props)
-  const total = props.parts.reduce((sum, part) => sum + part.exercises, 0);
+const Total = ({ parts }) => {
+  const total = parts.reduce((sum, part) => sum + part.exercises, 0);
 
   return (
     <>
@@ -44,7 +31,6 @@ const Total = (props) => {
     </>
   )
 }
-
 
 const App = () => {
   const course = {
@@ -73,6 +59,5 @@ const App = () => {
     </div>
   )
 }
-
 
 export default App
