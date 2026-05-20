@@ -12,22 +12,21 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
   
-  const [points, setPoints] = useState(Array(8).fill(0))
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
   const [selected, setSelected] = useState(0)
   const [highest, setHighest] = useState(0)
 
   const randomIndex = () => {
-    let newIndex = Math.floor(Math.random() * anecdotes.length)
-    setSelected(newIndex)
+    setSelected(Math.floor(Math.random() * anecdotes.length))
   }
 
   const voteForQuote = () => {
-    const copy = [...points]
-    copy[selected]+= 1
-    setPoints(copy)
+    const newVotes = [...votes]
+    newVotes[selected] += 1
+    setVotes(newVotes)
 
-    const highestVotes = Math.max(...copy)
-    const highestVotedIndex = copy.indexOf(highestVotes)
+    const highestVotes = Math.max(...newVotes)
+    const highestVotedIndex = newVotes.indexOf(highestVotes)
     setHighest(highestVotedIndex)
   }
 
@@ -35,17 +34,17 @@ const App = () => {
     <div>
       <h1>Anecdote of the day</h1>
       <button onClick={voteForQuote}>
-        VOTE
+        Vote
       </button>
       <button onClick={randomIndex}>
-        randomise!
+        Randomise!
       </button>
       <p>{anecdotes[selected]}</p>
-      <p>...has {points[selected]} votes</p>
+      <p>...has {votes[selected]} votes</p>
       
       <h1>Anecdote with most votes</h1>
       <p>{anecdotes[highest]}</p>
-      <p>...has {points[highest]} votes</p>
+      <p>...has {votes[highest]} votes</p>
     </div>
   )
 }
